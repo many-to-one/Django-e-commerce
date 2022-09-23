@@ -1,0 +1,82 @@
+{% load cart_template_tags %}
+{% load static %}
+
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom
+    shadow-sm p-3 mb-5 bg-body rounded">
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{% url 'home' %}" class="nav-link px-2 link-secondary">Głowna</a>
+        </li>
+        <div class="dropdown">
+            <a class="nav-link px-2 link-dark dropdown-toggle" href="#" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                Kategorii</a>
+
+            <ul class="dropdown-menu">
+                {% for item in categories %}
+                <li><a class="dropdown-item" href="{{ item.category.get_absolute_url }}">{{ item.category }}</a></li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        <li><a href="#" class="nav-link px-2 link-dark">Zestawy</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">Promocja</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">Kontakt</a></li>
+        <li><a href="{% url 'my_orders' %}
+                " class="nav-link px-2 link-dark">Mój profil</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">O nas</a></li>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'admin' %}"
+               class="nav-link px-2 link-dark">Admin</a></li>
+        <li><a href="{% url 'unshipped_orders' %}"
+               class="nav-link px-2 link-dark">Zamówienia</a></li>
+        <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'cart' %}">
+            <span class="badge z-depth-1 mr-1" style="color:red;">
+                    <span class="badge text-bg-success">
+                        {% get_cart_items request.user %}
+                    </span>
+                </span>
+                <span class="clearfix d-none d-sm-inline-block" >
+                    <img src="{% static 'img/shopping-cart.png' %}">
+                </span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link waves-effect">
+                <span class="badge red z-depth-1 mr-1" style="color:red;">
+                    Witaj, {{ request.user }}</span>
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+
+        {% if request.user.is_authenticated %}
+         <div class="btn btn-outline-secondary add-btn">
+                    <div class="input-group-append"
+                         type="submit">
+
+                        <a class="nav-link" href="{% url 'logout_page' %}">
+                            Wyloguj</a>
+
+                    </div>
+                </div>
+                <br>
+        {% else %}
+
+        <button type="button" class="btn btn-outline-primary me-2" >
+            <a class="nav-link waves-effect" href="{% url 'login_page' %}">
+                <span class="clearfix d-none d-sm-inline-block">Zaloguj się
+                </span></a>
+        </button>
+
+        <button type="button" class="btn btn-outline-primary me-2" >
+            <a class="nav-link waves-effect" href="{% url 'register_page' %}">
+                <span class="clearfix d-none d-sm-inline-block">Zarejestruj się
+                </span></a>
+        </button>
+        {% endif %}
+
+    </div>
+</header>

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!--<div class="container text-center " style="max-width: 1000px;">-->
+<!-- <div class="row g-0">-->
+<!-- <div class="col-md-4">-->
+<!-- <img src="{{ product.photo.url }}"-->
+<!-- class="img-fluid fullscreen-trigger " alt="...">-->
+<!-- </div>-->
+<!-- <div class="col-md-8">-->
+<!-- <div class="card-body">-->
+<!-- <h5 class="card-title">{{ product.title }}</h5>-->
+<!-- <p class="lead">-->
+<!-- {% if product.discount_price %}-->
+<!-- <span class="mr-1">-->
+<!-- <del>{{ product.price }} PLN</del>-->
+<!-- </span>-->
+<!-- <span class="mr-1">Tylko za {{ product.discount_price }} PLN</span>-->
+<!-- {% else %}-->
+<!-- <span>{{ product.price }}</span>-->
+<!-- {% endif %}-->
+<!-- </p>-->
+<!-- <p class="lead front-weight-bold">Opis</p>-->
+<!-- <p class="lead">{{ product.content|safe }}</p>-->
+<!-- <p class="card-text">Stan: {{ product.quantity }}</p>-->
+<!-- <p class="card-text">Obejrzało: {{ product.views }} </p>-->
+<!-- <p class="card-text"><small class="text-muted">Ostatnia-->
+<!-- aktualizacja: {{ product.updated_at }}</small></p>-->
+<!--&lt;!&ndash; <form class="d-flex justify-content-left">&ndash;&gt;-->
+<!--&lt;!&ndash; <input type="number" value="1" aria-label="Search" class="form">&ndash;&gt;-->
+<!-- <a href="{{ item.get_add_to_cart_url }}" class="btn btn-success btn-md my-0">-->
+<!-- Dodaj do koszyka-->
+<!-- <i class="fas fa-shopping-cart ml-1"></i>-->
+<!-- </a>-->
+<!--&lt;!&ndash; </form>&ndash;&gt;-->
+<!-- </div>-->
+<!-- </div>-->
+<!-- </div>-->
+<!--</div>-->
+
+<div class="container text-center " style="max-width: 1200px;">
+    <div class="row g-0">
+
+        <!-- Image-->
+        <div class="col-md-4">
+            <div class="right-side-pro-detail border p-3 m-0">
+                <img src="{{ product.photo.url }}"
+                     class="img-fluid fullscreen-trigger " alt="...">
+                <!-- <img src="{{ product.photo.url }}"-->
+                <!-- class="img-fluid fullscreen-trigger " alt="...">-->
+                <!-- <img src="{{ product.photo.url }}"-->
+                <!-- class="img-fluid fullscreen-trigger " alt="...">-->
+            </div>
+        </div>
+        <!-- Image end-->
+
+        <div class="col-md-8">
+            <div class="right-side-pro-detail border p-3 m-0">
+                <h5 class="card-title">{{ product.title }}</h5>
+                <p class="lead">
+                    {% if product.discount_price %}
+                    <span class="mr-1">
+ <del>{{ product.price }} PLN</del>
+ </span>
+                    <span class="mr-1" style="color:red;">Tylko za {{ product.discount_price }} PLN</span>
+                    {% else %}
+                    <span>{{ product.price }}</span>
+                    {% endif %}
+                </p>
+                <p class="lead front-weight-bold">Opis</p>
+                <p class="lead">{{ product.content|safe }}</p>
+                <p class="card-text">Stan: {{ product.quantity }}</p>
+                <p class="card-text">Obejrzało: {{ product.views }} </p>
+                <p class="card-text"><small class="text-muted">Ostatnia
+                    aktualizacja: {{ product.updated_at }}</small></p>
+
+
+<!--            <form id="form_buying_product" class="form-inline">-->
+<!--                &lt;!&ndash; Quantity&ndash;&gt;-->
+
+<!--                <div class="form-group">-->
+<!--                    <h6>Quantity :</h6>-->
+<!--                    <input type="number" class="form-control text-center"-->
+<!--                           value="1">-->
+<!--                </div>-->
+<!--                <br>-->
+
+                <!-- END QUANTITY-->
+<!--                <div class="form-group">-->
+                    <div class="cart_item_text">
+
+
+                                                <a data-product="{{ product.id }}"
+                                                data-action="add"
+                                                type="button"
+                                                class="nav-link px-2 link-dark update-cart">
+                                                <p>&#10010;</p>
+                                                <p class="quantity">{{ order_item.quantity }}</p>
+                                                <a data-product="{{ product.id }}"
+                                                data-action="remove"
+                                                type="button"
+                                                class="nav-link px-2 link-dark update-cart">
+                                                <p>&#9866;</p>
+                                            </a>
+                                            </a>
+
+
+
+                                            </div>
+<!--                </div>-->
+
+<!--            </form>-->
+                <!-- end test-->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

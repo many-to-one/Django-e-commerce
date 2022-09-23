@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<main>
+<!--    <div class="container wow fadeIn">-->
+<!--        HEAD-->
+        <h2 class="my-5 h2 text-center">Opłata</h2>
+        <!--GRID ROW-->
+<!--        <div class="row">-->
+<!--            GRID COLUMN-->
+<!--            <div class="col-md-12 mb-4">-->
+
+<!--                CARD-->
+<!--                <div class="card">-->
+
+<!--                    MAIN BODY-->
+            <div class="row">
+                    <div class="col-md-4 offset-md-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <p class="text-muted">Podsumowanie</p>
+                <span class="badge text-bg-info">
+                    {{ order.get_cart_items }}</span>
+            </h4>
+            <ul class="list-group mb-3">
+                {% for item in order.items.all %}
+                <li class="list-group-item d-flex justify-content-between
+ lh-condensed">
+                    <div class="my-0">{{ item.quantity }} x {{ item.product.title }}</div>
+                    <br>
+                    <span class="text-muted">
+                        {{ item.get_final_price }} Zł
+                    </span>
+                </li>
+                {% endfor %}
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                    <div class="text-success">
+                        <h6 class="m0">Promo kod</h6>
+                        <small>EXAMPLECODE</small>
+                    </div>
+                    <span class="text-success">-20 Zł</span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between">
+                    <h6 class="text-uppercase mb-3">WYSYŁKA</h6>
+
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between">
+                    <div class="text-success">RAZEM</div>
+                    <span class="text-danger">{{ order.get_total }} Zł</span>
+                </li>
+            </ul>
+            <form class="card p-2">
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           placeholder="Promo kod">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-info">
+                            Wysłać kod
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <form class="card p-2">
+                <div class="btn btn-outline-primary add-btn">
+                        <a class="nav-link" href="{% url 'home' %}">
+                            Kontynuuj zakupy</a>
+                </div>
+            </form>
+
+                <form class="card p-2" action="{% url 'create_checkout_session' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="order_id" value="{{ order.id }}">
+                        <button class="btn btn-warning btn-lg btn-block" type="submit">
+                            Zapłać
+                        </button>
+                    </form>
+                    </div>
+<!--                    /.MAIN BODY-->
+
+                </div>
+<!--                    /.CARD-->
+<!--            </div>-->
+<!--                /.GRID COLUMN-->
+<!--        </div>-->
+<!--        /.GRID ROW-->
+<!--    </div>-->
+</main>
+
+{% endblock %}

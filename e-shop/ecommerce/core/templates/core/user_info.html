@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+
+<p class="text-center fs-1">Historia zamówień</p>
+
+<table class="table caption-top">
+    <thead>
+    <tr>
+        <th scope="col">Numer</th>
+        <th scope="col">Status</th>
+        <th scope="col">Klient</th>
+        <th scope="col">Historia zamówienia</th>
+        <th scope="col">Data</th>
+        <th scope="col">Kwota</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for order in orders %}
+    <tr>
+        <th scope="row">{{ order.id }}</th>
+        {% if order.is_shipped %}
+        <td scope="row">Wysłane:
+            <p class="text-muted"> {{ order.is_shipped_time }}</p>
+        </td>
+        {% else %}
+        {% if order.canceled %}
+            <td scope="row">Anulowane:
+                <p class="text-muted"> {{ order.canceled_time }}</p>
+            </td>
+        {% elif not order.is_shipped %}
+            <td scope="row">Nie wysłane od:
+                <p class="text-muted"> {{ order.date_ordered }}</p>
+            </td>
+        {% endif %}
+        {% endif %}
+        <td>{{ order.user }}</td>
+        <td>
+            <ul><a href="{{ order.get_absolute_url_admin }}"
+               class="nav-link px-2 link-dark">Historia</a></ul>
+        </td>
+        <td>{{ order.date_ordered }}</td>
+        <td>{{ order.get_total }} ZŁ</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

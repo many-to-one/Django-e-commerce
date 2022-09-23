@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Ceny Artykułów</h1>
+    <p class="lead">
+        Quickly build an effective pricing table for your potential customers
+        with this Bootstrap example. It's built with default Bootstrap
+        components and utilities with little customization.
+    </p>
+</div>
+<!--<div class="container text-center">-->
+<!--    <div class="row justify-content-center">-->
+<!--        {% for item in products %}-->
+<!--        <div class="col-md-4">-->
+<!--            <div class="card-deck mb-3 text-center">-->
+<!--                <div class="card mb-4 box-shadow" style="width: 18rem;">-->
+<!--                  <div class="card-header">-->
+<!--                      <h4 class="nav-link">-->
+<!--                          <a class="nav-link" href="{{ item.categoru.get_absolute_url }}">-->
+<!--                            {{ item.category }}</a>-->
+<!--                      </h4>-->
+<!--                  </div>-->
+<!--                    <img src="{{ item.photo.url }}" width='200' height='250'-->
+<!--                         class="card-img-top" alt="...">-->
+<!--                    <div class=" card-body">-->
+<!--                        <h5 class="card-title">{{ item.title }}</h5>-->
+<!--                        <p class="card-text"></p>-->
+<!--                        <a href="{{ item.get_absolute_url }}"-->
+<!--                           class="btn btn-primary">Go somewhere</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="container text-center">
+    <div class="row justify-content-center">
+        {% for item in products %}
+        <div class="col-md-4">
+            <div class="card-deck mb-3 text-center">
+                <div class="card mb-4 shadow-sm p-3 mb-5 bg-body rounded"
+                     style="width: 18rem;">
+                    <img class="justify-content-center"
+                         src="{{ item.photo.url }}"
+                         width="200"
+                         height="250">
+                    <div class="box-element product">
+                        <h6><strong>{{ item.short_title }}</strong></h6>
+                        <hr>
+                        <button data-product="{{ product.id }}"
+                                data-action="add"
+                                class="btn btn-outline-secondary add-btn update-cart">
+                            <a class="nav-link"
+                               href="{{ item.get_add_to_cart_url }}">
+                                Dodaj
+                                do
+                                koszyka
+                            </a>
+                        </button>
+                        <a class="btn btn-outline-success"
+                           href="{{ item.get_absolute_url }}">Więcej</a>
+                        <h4>
+                            <strong>{{ item.price|floatformat:2 }}
+                                PLN</strong>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

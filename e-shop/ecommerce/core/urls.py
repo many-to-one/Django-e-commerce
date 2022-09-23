@@ -1,0 +1,40 @@
+from django.urls import path
+from django.contrib.auth import views as auth_views
+from .admin import ItemAdminForm
+from .views import *
+
+urlpatterns = [
+    path('', category_home_view, name='home'),
+    path('all_products/', AllProductsView.as_view(), name='all_products'),
+    path('admin/', ItemAdminForm, name='admin'),
+    path('check_out/', CheckOutView.as_view(), name='check_out'),
+    path('product/<slug>/', ProductView.as_view(), name='product'),
+    path('category/<slug>/', ProductsByCategory.as_view(), name='category'),
+    path('add_to_cart/<slug>/', add_to_cart, name='add_to_cart'),
+    path('remove_from_cart/<slug>/', remove_from_cart,
+         name='remove_from_cart'),
+    path('delete_from_cart/<slug>/', delete_from_cart,
+         name='delete_from_cart'),
+    path('cart/', cart, name='cart'),
+    path('create_checkout_session/', CreateCheckoutSessionView.as_view(),
+         name='create_checkout_session'),
+    path('payment_success/', payment_success, name='payment_success'),
+    path('payment_cancel', paymentCancel, name='payment_cancel'),
+    path('webhook/stripe/', my_webhook_view, name='my_webhook_view'),
+    path('my_orders/', my_orders, name='my_orders'),
+    path('order_view/<slug>/', order_view, name='order_view'),
+    path('cancel_order/<slug>/', cancel_order, name='cancel_order'),
+    path('cancel_orders/', cancel_orders, name='cancel_orders'),
+    path('admin_order_view/<slug>/', admin_order_view,
+         name='admin_order_view'),
+    path('all_orders', all_orders, name='all_orders'),
+    path('shipped_orders/', shipped_orders, name='shipped_orders'),
+    path('unshipped_orders/', unshipped_orders, name='unshipped_orders'),
+    path('user_info/<slug>/', user_info, name='user_info'),
+    path('register_page/', register_page, name='register_page'),
+    path('login_page/', login_page, name='login_page'),
+    path('logout_page/', logout_page, name='logout_page'),
+    # path('password_change/', password_change, name='password_change'),
+    path('password_change/', PasswordChange.as_view(), name='password_change'),
+    path('payment_card/', payment_card, name='payment_card'),
+]

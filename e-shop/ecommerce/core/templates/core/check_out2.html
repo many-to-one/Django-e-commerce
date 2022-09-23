@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+
+<link rel="stylesheet" href="{% static 'ecommerce_css/check_out.css' %}">
+<div style="width: 1024px" class="container center">
+    <div class="row">
+        <div class="col-md-6 order-md-1">
+            <h4 class="mb-3">Wpisz dane</h4>
+<!--                        <form>-->
+<!--            {% csrf_token %}-->
+<!--            {{ form|crispy }}-->
+<!--            <button class="btn btn-warning btn-lg btn-block mr-4 " type="submit">-->
+<!--                            Zatwierdź-->
+<!--            </button>-->
+<!--        </form>-->
+            <form method="post" class="card-body" >
+                {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="firstName">Imię</label>
+                    {{ form.name }}
+                    <div class="invalid-feedback">Wprowadź Imię
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="lastName">Nazwisko</label>
+                    {{ form.second_name }}
+                    <div class="invalid-feedback">Wprowadż Nazwisko</div>
+                </div>
+                <div class="mb-3">
+                    <label for="username">Nazwa firmy</label>
+                    <div class="input-group">
+                        {{ form.company }}
+                        <div class="invalid-feedback">Wprowadż nazwę
+                            firmy
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="street">Ulica</label>
+                    {{ form.street }}
+                    <div class="invalid-feedback">Podaj nazwę ulicy</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="city">Miasto/Miejscowość</label>
+                    {{ form.city }}
+                    <div class="invalid-feedback">Podaj nazwę miasta</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="zip">Kod pocztowy</label>
+                    {{ form.zip }}
+                    <div class="invalid-feedback">Wprowadż kod</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="phone">Telefon</label>
+                    {{ form.phone }}
+                    <div class="invalid-feedback">Podaj nazwę miasta</div>
+                </div>
+                <div class="mb-3">
+                    <label for="phone">Forma dostawy (kliknij żeby wybrać)</label>
+                    {{ form.shipment }}
+                    <div class="invalid-feedback">Podaj nazwę miasta</div>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input {% if form.save_info.value %}cheked{% endif %}
+                            type="checkbox" class="custom-control-input"
+                          name="save_info" id="save-info">
+                    <label class="custom-control-label" for="save-info">
+                        Zapisać dane i wykorzystać przy kolejnym zamówieniu
+                    </label>
+                </div>
+                <br><br>
+                <h4 class="mb-3">Płatności</h4>
+                <div class="d-block my-3">
+                    {% for value, name in form.fields.payment_options.choices %}
+                    <div class="custom-control custom-radio">
+                        <input id="{{name}}" name="payment_options"
+                               value="{{ value }}" type="radio"
+                               class="custom-control-input" checked required>
+                        <label class="custom-control-label" for="{{name}}">
+                            {{ name }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+                </div>
+                <button class="btn btn-warning btn-lg btn-block mr-4 " type="submit">
+                            Zatwierdź
+            </button>
+            </form>
+            </div>
+
+        </div>
+             <hr class="mb-4">
+                <footer class="my-5 pt-5 text-muted text-center text-small">
+                    <p class="mb-1">© 2022 Dax</p>
+                </footer>
+    </div>
+
+    {% endblock %}

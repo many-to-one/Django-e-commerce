@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<p class="text-center fs-1">Moje zamówienia</p>
+
+<table class="table caption-top">
+    <thead>
+    <tr>
+        <th scope="col">Numer</th>
+        <th scope="col">Klient</th>
+        <th scope="col">Historia zamówienia</th>
+        <th scope="col">Data</th>
+        <th scope="col">Kwota</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for order in orders %}
+    <tr>
+        <th scope="row">{{ order.id }}</th>
+        <td>{{ order.user }}</td>
+        <td>
+            <ul><a href="{{ order.get_absolute_url }}"
+               class="nav-link px-2 link-dark">Historia</a></ul>
+        </td>
+        <td>{{ order.date_ordered }}</td>
+        <td>{{ order.get_total }} ZŁ</td>
+
+        <td>
+            {% if not order.is_shipped %}
+            <button type="submit" class="btn btn-sm btn-outline-dark" >
+            <a class="nav-link waves-effect" href="{{ order.cancel_order }}">
+                <span class="clearfix d-none d-sm-inline-block">Anulować
+                </span></a>
+        </button>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-outline-primary me-2" >
+            <a class="nav-link waves-effect" href="{% url 'password_change' %}">
+                <span class="clearfix d-none d-sm-inline-block">Zmienić hasło
+                </span></a>
+        </button>
+
+
+
+
+<!--<h2>Order Summary</h2>-->
+
+<!--<table class="table caption-top">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th scope="col">#</th>-->
+<!--        <th scope="col">Item</th>-->
+<!--        <th scope="col">Title</th>-->
+<!--        <th scope="col">Price</th>-->
+<!--        <th scope="col">Quantity</th>-->
+<!--        <th scope="col">Total Item Price</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    {% for order_item in order.items.all %}-->
+<!--    <tr>-->
+<!--        <th scope="row">1</th>-->
+<!--        <td>{{ order_item.product.title }}</td>-->
+<!--        <td>{{ order_item.product.price }}</td>-->
+<!--        <td>{{ order_item.quantity }}</td>-->
+<!--        {% if order_item.product.discount_price %}-->
+<!--        <td>{{ order_item.get_total_item_discount_price }}</td>-->
+<!--        {% else %}-->
+<!--        <td>{{ order_item.get_total_item_price }}</td>-->
+<!--        {% endif %}-->
+<!--    </tr>-->
+<!--    {% endfor %}-->
+<!--    </tbody>-->
+<!--</table>-->
+
+{% endblock %}

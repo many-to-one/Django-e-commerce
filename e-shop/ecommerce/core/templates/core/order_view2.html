@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="container" style="max-width: 1200px;">
+    <div class="row g-0">
+
+        {% for item in order.items.all %}
+        <!-- Image-->
+        <div class="col-md-3">
+            <div class="shadow p-3 mb-5 bg-body rounded">
+                <img src="{{ item.product.photo.url }}"
+                     class="img-fluid fullscreen-trigger " alt="...">
+            </div>
+        </div>
+        <!-- Image end-->
+
+        <div class="col-md-8">
+
+            <div class="row right-side-pro-detail border p-3 m-2">
+                <div class="shadow-none p-3 mb-5 bg-light rounded">
+                    <h5 class="card-title">{{ item.product.title }}</h5>
+                </div>
+
+                <div class="shadow-sm p-3 mb-2 bg-body rounded">
+                    <div class="hstack gap-3">
+                        <div class="fs-5 text">Ilość</div>
+                        <div class="fs-5 ms-auto text"></div>
+                        <div class="fs-5 text">{{ item.quantity }}</div>
+                    </div>
+                </div>
+
+                <div class="shadow-sm p-3 mb-2 bg-body rounded">
+                    <div class="hstack gap-3">
+                        <div class="fs-5 text">Cena</div>
+                        <div class="fs-5 ms-auto text"></div>
+                        <div class="fs-5 text">{{ item.product.price }}</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+    <br>
+    <div class="row right-side-pro-detail border p-3 m-0">
+
+        <div class="hstack gap-3">
+            <div class="fs-5 text">Numer zamówienia</div>
+            <div class="fs-5 ms-auto text"></div>
+            <div class="fs-5 text">{{ order.id }}</div>
+        </div>
+
+        <hr class="mb-4">
+
+        <div class="hstack gap-3">
+            <div class="fs-5 text">Data zamówienia</div>
+            <div class="fs-5 ms-auto text"></div>
+            <div class="fs-5 text">{{ order.date_ordered }}</div>
+        </div>
+
+        <div class="hstack gap-3">
+            <div class="fs-5 text">Imię</div>
+            <div class="fs-5 ms-auto text"></div>
+            <div class="fs-5 text">{{ order.shipping_data.name }}</div>
+        </div>
+
+        <div class="hstack gap-3">
+            <div class="fs-5 text">Nazwisko</div>
+            <div class="fs-5 ms-auto text"></div>
+            <div class="fs-5 text">{{ order.shipping_data.second_name }}</div>
+        </div>
+
+        <div class="hstack gap-3">
+            <div class="fs-5 text">Firma</div>
+            <div class="fs-5 ms-auto text"></div>
+            <div class="fs-5 text">{{ order.shipping_data.company }}</div>
+        </div>
+
+        <div class="hstack gap-3">
+            <div class="fs-5 text">Miejscowość</div>
+            <div class="fs-5 ms-auto text"></div>
+            <div class="fs-5 text">{{ order.shipping_data.city }}</div>
+        </div>
+
+        <div class="hstack gap-3">
+            <div class="fs-5 text">Ulisa</div>
+            <div class="fs-5 ms-auto text"></div>
+            <div class="fs-5 text">{{ order.shipping_data.street }}</div>
+        </div>
+
+        <div class="hstack gap-3">
+            <div class="fs-5 text">Kod pocztowy</div>
+            <div class="fs-5 ms-auto text"></div>
+            <div class="fs-5 text">{{ order.shipping_data.zipcode }}</div>
+        </div>
+
+        <div class="hstack gap-3">
+            <div class="fs-5 text">Numer telefonu</div>
+            <div class="fs-5 ms-auto text"></div>
+            <div class="fs-5 text">{{ order.shipping_data.phone }}</div>
+        </div>
+
+        <div class="hstack gap-3">
+            <div class="fs-5 text">Sposób dostawy</div>
+            <div class="fs-5 ms-auto text"></div>
+            <div class="fs-5 text">{{ order.shipping_data.shipment }}</div>
+        </div>
+
+        <hr class="mb-4">
+
+        <div class="hstack gap-3">
+            <div class="fs-5 text">RAZEM</div>
+            <div class="fs-5 ms-auto text"></div>
+            <div class="fs-5 text">{{ order.get_total }} Zł</div>
+        </div>
+
+</div>
+</div>
+{% endblock %}

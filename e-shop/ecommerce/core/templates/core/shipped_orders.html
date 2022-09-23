@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<!--<form method="post">-->
+<!--        {% csrf_token %}-->
+<p class="text-center fs-1">Wysłane zamówienia</p>
+
+<!--BUTTONS-->
+<div class="col-md-12 text-center">
+<button type="button"
+        class="btn btn-outline-secondary btn-sm position-relative">
+    <a href="{% url 'all_orders' %}" class="nav-link
+ px-2 link-dark">Wszystkie zamówienia</a>
+</button>
+
+<button type="button"
+        class="btn btn-outline-secondary btn-sm position-relative">
+    <a href="{% url 'unshipped_orders' %}" class="nav-link
+ px-2 link-dark">Niewysłąne zamówienia</a>
+</button>
+
+<button type="button"
+        class="btn btn-outline-secondary btn-sm position-relative">
+    <a href="{% url 'cancel_orders' %}" class="nav-link
+ px-2 link-dark">Anulowane zamówienia</a>
+</button>
+</div><br><br>
+<!--ENDBUTTONS-->
+
+<table class="table caption-top">
+    <thead>
+    <tr>
+        <th scope="col"> </th>
+        <th scope="col">Status </th>
+        <th scope="col">Numer </th>
+        <th scope="col">Klient </th>
+        <th scope="col">Historia zamówienia</th>
+        <th scope="col">Data</th>
+        <th scope="col">Kwota</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for order in shipped_or %}
+    <tr class="table-success">
+        <td>
+          <input type="checkbox" id="check" name="checks[]" value="{{ order.id }}">
+        </td>
+        <td scope="row">Wysłane:
+            <p class="text-muted"> {{ order.is_shipped_time }}</p>
+        </td>
+        <th scope="row">{{ order.id }}</th>
+        <td>
+            <ul><a href="{{ order.get_absolute_url_user_info }}" class="nav-link px-2 link-dark">{{ order.user }}</a></ul>
+        </td>
+        <td>
+            <ul><a href="{{ order.get_absolute_url_admin }}" class="nav-link px-2 link-dark">Sprawdzić</a></ul>
+        </td>
+        <td>{{ order.date_ordered }}</td>
+        <td>{{ order.get_total }}</td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+<div class="col-md-12 text-center">
+    <button type="submit" class="btn btn-dark">Drukuj</button>
+</div>
+<!--</form>-->
+
+{% endblock %}

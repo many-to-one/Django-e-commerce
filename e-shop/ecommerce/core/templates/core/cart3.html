@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<section class="h-100 h-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12">
+        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-lg-8">
+                <div class="p-5">
+                  <div class="d-flex justify-content-between align-items-center mb-5">
+                    <h1 class="fw-bold mb-0 text-black">Koszyk</h1>
+                    <h6 class="mb-0 text-muted">{{ order.get_cart_items }} Artykuł(y)(ów)</h6>
+                  </div>
+                    {% for item in order.items.all %}
+                  <hr class="my-4">
+
+                  <div class="row mb-4 d-flex justify-content-between align-items-center">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                      <img
+                        src="{{ item.product.photo.url }}"
+                                        alt="" width="140" height="100"
+                        class="img-fluid rounded-3">
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xl-3">
+                        <a href="{{ item.product.get_absolute_url }}" class="nav-link
+                            px-2 link-secondary ml-2">{{ item.product.title }}</a>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+
+                        <a class="nav-link" type="button"
+                           href="{{ item.product.get_add_to_cart_url }}">
+                            <p>&#10010;</p></a>&nbsp;&nbsp;
+
+                            <h5 class="quantity">{{ item.quantity }}</h5>&nbsp;&nbsp;
+
+                        <a class="nav-link" type="button"
+                           href="{{ item.product.get_remove_from_cart_url }}">
+                            <p>&#9866;</p></a>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                      <h6 class="mb-0">
+
+                          {% if item.product.discount_price %}
+                          {{ item.product.discount_price }} Zł
+                          {% else %}
+                          {{ item.product.price }} Zł
+                          {% endif %}
+
+                      </h6>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 text-end">
+                      <h6>
+                          {% if item.product.discount_price %}
+                          {{ item.get_total_item_discount_price }} Zł
+                          <span class="badge bg-primary">
+                              -{{ item.get_amount_saved }} Zł
+                          </span>
+                          {% else %}
+                          {{ item.get_total_item_price }} Zł
+                          {% endif %}
+                      </h6>
+                        <a href="{{ item.product.get_delete_from_cart_url }}" type="button" class="btn-close" disabled aria-label="Close">
+                        </a>
+                    </div>
+                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                      <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                    </div>
+                  </div>
+                  {% endfor %}
+                  <hr class="my-4">
+
+                </div>
+              </div>
+              <div class="col-lg-4 bg-grey">
+                <div class="p-5">
+                  <h3 class="fw-bold mb-5 mt-2 pt-1">Podsumowanie</h3>
+                  <hr class="my-4">
+                  <div class="d-flex justify-content-between mb-4">
+<!--                    <h5 class="text-uppercase">{{ order.get_cart_items }}</h5>-->
+                      <h5 class="d-flex justify-content-between align-items-center mb-3">
+                <a class="text-muted"></a>
+                <span class="badge text-bg-info">
+                    {{ order.get_cart_items }}</span>
+            </h5>
+                    <h5>Artykuł(y)(ów) w koszyku</h5>
+                  </div>
+
+<!--                  <h5 class="text-uppercase mb-3">WYSYŁKA</h5>-->
+
+<!--                  <div class="mb-4 pb-2">-->
+<!--                    <select class="select">-->
+<!--                      <option value="2">InPost Kurier - 19zł</option>-->
+<!--                      <option value="3">InPost Paczkomat - 8zł</option>-->
+<!--                      <option value="4">DPD Kurier 25zł</option>-->
+<!--                    </select>-->
+<!--                  </div>-->
+
+<!--                  <h5 class="text-uppercase mb-3">KOD RABATOWY</h5>-->
+
+<!--                  <div class="mb-5">-->
+<!--                    <div class="form-outline">-->
+<!--                      <input type="text" id="form3Examplea2" class="form-control form-control-lg" />-->
+<!--                      <label class="form-label" for="form3Examplea2">Wpisz swój kod</label>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+                  <hr class="my-4">
+
+                  <div class="d-flex justify-content-between mb-5">
+                    <h5 class="text-uppercase">RAZEM DO ZAPLATY</h5>
+                          <h5>{{ order.get_total }} Zł</h5>
+                  </div>
+                    {% if order.get_cart_items %}
+                  <button type="button" class="btn btn-dark btn-block btn-lg"
+                    data-mdb-ripple-color="dark"><a href="{% url 'check_out' %}" class="nav-link
+                            px-2 link-light">Zapłać</a></button>
+
+                    <button type="button" class="btn btn-outline-info btn-lg">
+                            <a href="{% url 'home' %}" class="nav-link
+                            px-2 link-dark">Kontynuuj zakupy</a>
+                        </button>
+
+                    {% else %}
+                    <p>W Twoim koszyku jeszcze nie ma zamówień</p>
+                    {% endif %}
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

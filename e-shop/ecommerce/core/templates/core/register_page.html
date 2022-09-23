@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+ <div class="container">
+    <div class="row">
+        <br>
+        <br>
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <form method="post">
+                {% csrf_token %}
+              <div class="form-group">
+                <label for="exampleInputUsername">{{ form.username.label }}</label>
+                <input type="text" class="form-control" name="username" id="exampleInputUsername" placeholder="Imię" required>
+              </div>
+                <div class="form-group">
+                <label for="exampleInputEmail1">{{ form.email.label }}</label>
+                <input type="text" class="form-control" name="email" aria-describedby="usernameHelp" placeholder="Email" required>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">{{ form.password1.label }}</label>
+                <input type="password" class="form-control" name="password1" id="exampleInputPassword1" placeholder="Hasło" required>
+              </div>
+                 <div class="form-group">
+                <label for="exampleInputPassword2">{{ form.password2.label }}</label>
+                <input type="password" class="form-control" name="password2" id="exampleInputPassword2" placeholder="Powtórz hasło" required>
+              </div>
+                {{ form.error }}
+                <br><br>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    </div>
+
+
+{% endblock %}

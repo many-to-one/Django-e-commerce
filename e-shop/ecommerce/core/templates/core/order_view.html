@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Historia zamówienia</h2>
+
+<table class="table caption-top">
+    <thead>
+    <tr>
+        <!--        <th scope="col">#</th>-->
+        <th scope="col">Artykuł</th>
+        <th scope="col">Nazwa</th>
+        <th scope="col">Ilość</th>
+        <th scope="col">Cena</th>
+        <th scope="col">Razem</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in order.items.all %}
+    <tr>
+        <!--         <th scope="row">{{ item.id }}</th>-->
+        <td>
+            <p><img src="/media/{{ item.product.photo }}" width="40"></p>
+        </td>
+        <td>{{ item.product.title }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.product.price }}</td>
+        {% if order_item.product.discount_price %}
+        <td>{{ item.get_total_item_discount_price }}</td>
+        {% else %}
+        <td>{{ item.get_total_item_price }}</td>
+        {% endif %}
+        <td>{{ item.get_payment.amount }}</td>
+    </tr>
+    {% endfor %}
+    {{ order.shipping_data.company }}
+    </tbody>
+</table>
+
+    <div class="col-md-12 text-center">
+        <button type="button"
+        class="btn btn-warning btn-md">
+    <a href="{% url 'my_orders' %}" class="nav-link
+ px-2 link-dark">Wróć do historii zamówień</a>
+</button>
+    </div>
+
+{% endblock %}
