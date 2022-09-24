@@ -4,27 +4,6 @@ from django.db import models
 from django.urls import reverse
 
 
-class Customer(models.Model):
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-    )
-    first_name = models.CharField(max_length=100, verbose_name='Imię')
-    second_name = models.CharField(max_length=100, verbose_name='Nazwisko')
-    company = models.CharField(max_length=100, verbose_name='Firma', null=True)
-    street = models.CharField(max_length=100, verbose_name='Ulica')
-    city = models.CharField(max_length=100, verbose_name='Miejscowość')
-    zip_code = models.CharField(max_length=100, verbose_name='Kod pocztowy')
-    phone = models.CharField(max_length=100, verbose_name='Kod pocztowy')
-    # shipment = models.CharField(max_length=100, verbose_name='Dostawa')
-    email = models.EmailField(max_length=100)
-
-    def __str__(self):
-        return f'{self.first_name} {self.second_name}'
-
-
 class Category(models.Model):
     title = models.CharField(max_length=255,
                              verbose_name='Tytuł')
