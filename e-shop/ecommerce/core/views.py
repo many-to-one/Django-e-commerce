@@ -1,28 +1,19 @@
 from datetime import datetime
-import json
-from django.contrib.auth.forms import PasswordChangeForm, SetPasswordForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
-from django.http import JsonResponse
 from .forms import *
 import stripe
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import *
-from django.contrib.auth import _get_user_session_key
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import ObjectDoesNotExist
-from django.db import connection
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.http import HttpResponse
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import *
-
 from .models import *
 
 
@@ -132,8 +123,6 @@ class CategoryView(ListView):
     template_name = 'core/header.html'
     context_object_name = 'category'
 
-    # paginate_by = 6
-
     def get_queryset(self):
         return Category.objects.all()
 
@@ -143,8 +132,6 @@ def check_out(request):
         user = request.user
         order, created = MainOrder.objects.get_or_create(user=user,
                                                          complete=False)
-        # order = MainOrder.objects.get(user=user,
-        #                                                  complete=False)
         items = order.mainorderitem_set.all()
     else:
         order = {'get_cart_total': 0, 'get_cart_items': 0}
@@ -291,7 +278,6 @@ def add_to_cart(request, slug):  # 33 minuta rolika
 
 @login_required
 def remove_from_cart(request, slug):
-    # if request.user.is_authenticated:
     product = get_object_or_404(Item, slug=slug)
     order_qs = MainOrder.objects.filter(
         user=request.user,
@@ -416,9 +402,6 @@ class CreateCheckoutSessionView(generic.View):
 
 
 def payment_success(request):
-    # context = {
-    #     'payment_status': 'success'
-    # }
     return render(request, 'core/payment_success.html')
 
 

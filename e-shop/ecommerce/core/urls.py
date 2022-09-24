@@ -1,5 +1,4 @@
 from django.urls import path
-from django.contrib.auth import views as auth_views
 from .admin import ItemAdminForm
 from .views import *
 
@@ -34,7 +33,6 @@ urlpatterns = [
     path('register_page/', register_page, name='register_page'),
     path('login_page/', login_page, name='login_page'),
     path('logout_page/', logout_page, name='logout_page'),
-    # path('password_change/', password_change, name='password_change'),
     path('password_change/', PasswordChange.as_view(), name='password_change'),
     path('payment_card/', payment_card, name='payment_card'),
 ]
